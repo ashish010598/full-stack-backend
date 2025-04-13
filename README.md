@@ -12,7 +12,33 @@ This is the **Node.js + Express + MongoDB backend API** for the **School Vaccina
 
 ## 📁 Project Structure
 
-backend/ ├── controllers/ # Route handlers ├── services/ # Business logic ├── middleware/ # JWT Auth, error handling, multer upload ├── models/ # Mongoose models ├── routes/ # Route definitions ├── uploads/ # Temporary CSV uploads ├── app.js # Express app config ├── server.js # App entry point ├── .env # Environment config
+backend/
+├── config
+| ├── db.js
+├── controllers/
+│ ├── authController.js
+│ ├── studentController.js
+│ ├── driveController.js
+├── services/
+│ ├── studentService.js
+│ ├── driveService.js
+├── middleware/
+│ ├── authMiddleware.js
+│ ├── uploadMiddleware.js
+├── models/
+│ ├── Student.js
+│ ├── VaccinationDrive.js
+│ ├── User.js
+├── routes/
+│ ├── authRoutes.js
+│ ├── studentRoutes.js
+│ ├── driveRoutes.js
+├── uploads/
+│ └── students.csv
+├── .env
+├── app.js
+├── server.js
+├── package.json
 
 ---
 
