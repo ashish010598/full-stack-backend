@@ -12,6 +12,7 @@ This is the **Node.js + Express + MongoDB backend API** for the **School Vaccina
 
 ## 📁 Project Structure
 
+```bash
 backend/
 ├── config
 | ├── db.js
@@ -39,6 +40,7 @@ backend/
 ├── app.js
 ├── server.js
 ├── package.json
+```
 
 ---
 
