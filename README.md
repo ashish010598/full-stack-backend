@@ -152,7 +152,7 @@ curl --location 'http://localhost:8081/api/students' \
     {
         "_id": "67fc0ed4be0e7e57824fa895",
         "name": "Ashish Pathak",
-        "class": "Mtech-FSE",
+        "class": "5A",
         "studentId": "2024TM93035",
         "vaccinationRecords": [],
         "__v": 0
@@ -160,7 +160,7 @@ curl --location 'http://localhost:8081/api/students' \
     {
         "_id": "67fd42b40be3b5010d141323",
         "name": "Aikansh Boyal",
-        "class": "Mtech-FSE",
+        "class": "5C",
         "studentId": "2024TM93021",
         "vaccinationRecords": [],
         "__v": 0
@@ -168,10 +168,45 @@ curl --location 'http://localhost:8081/api/students' \
     {
         "_id": "67fd42b40be3b5010d141324",
         "name": "Riyazuddin",
-        "class": "Mtech-FSE",
+        "class": "6B",
         "studentId": "2024TM93254",
         "vaccinationRecords": [],
         "__v": 0
     }
 ]
+```
+
+### 5. 📆 Create Vaccination Drive
+
+#### Request
+
+```bash
+curl --location 'http://localhost:8081/api/drives' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmMwNTMzYTdjNmMxYmYzODZmZjBlMyIsImlhdCI6MTc0NDU3MTAxNH0.KxSMvzRlkJl9yXweTac3Y4l7IL5CBb5JdpxzW131t4U' \
+--header 'Content-Type: application/json' \
+--data '{
+    "vaccineName": "Polio",
+    "date": "2025-05-01",
+    "totalDoses": 100,
+    "applicableClasses": ["5A", "5B", "5C", "5D"]
+}'
+```
+
+#### Response
+
+```bash
+{
+    "vaccineName": "Polio",
+    "date": "2025-05-01T00:00:00.000Z",
+    "totalDoses": 100,
+    "availableDoses": 100,
+    "applicableClasses": [
+        "5A",
+        "5B",
+        "5C",
+        "5D"
+    ],
+    "_id": "67fd4f79f44b4bc75eec1abb",
+    "__v": 0
+}
 ```

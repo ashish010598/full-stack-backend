@@ -5,15 +5,20 @@ const moment = require("moment");
 exports.createDrive = async (data) => {
   const { date } = data;
   const driveDate = moment(date);
+  if (!driveDate) {
+    throw new Error("Drive date is required");
+  }
   const today = moment();
-
+  if (driveDate.isBefore(today)) {
+    throw new Error("Drive date cannot be in the past");
+  }
   if (driveDate.diff(today, "days") < 15) {
     throw new Error("Drive must be scheduled at least 15 days in advance");
   }
-
   const conflict = await Drive.findOne({ date });
   if (conflict) throw new Error("Drive already scheduled on this date");
 
+  data.availableDoses = data.totalDoses;
   return await Drive.create(data);
 };
 
