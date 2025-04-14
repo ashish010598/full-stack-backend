@@ -34,10 +34,7 @@ exports.markVaccinated = async (req, res) => {
 };
 
 exports.bulkUpload = async (req, res) => {
-  const csv = require("csv-parser");
-  const fs = require("fs");
   const filePath = req.file.path;
-
   const students = [];
 
   try {
@@ -47,13 +44,28 @@ exports.bulkUpload = async (req, res) => {
         students.push(row);
       })
       .on("end", async () => {
-        const result = await studentService.bulkAdd(students);
-        res.status(200).json({
-          message: "Bulk upload successful",
-          uploaded: result.length,
-        });
+        try {
+          const result = await studentService.bulkAdd(students);
+          res.status(200).json({
+            message: "Bulk upload successful",
+            uploaded: result.length,
+          });
+        } catch (err) {
+          res.status(500).json({ error: err.message });
+        } finally {
+          // Delete the file after processing is complete
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error("Error deleting file:", err.message);
+            }
+          });
+        }
+      })
+      .on("error", (err) => {
+        // Handle stream errors
+        res.status(500).json({ error: "Error reading the file" });
+        console.error("Stream error:", err.message);
       });
-    fs.unlinkSync(filePath);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

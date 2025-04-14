@@ -67,3 +67,23 @@ npm run dev
 ```
 
 Server runs at: **http://localhost:8081**
+
+---
+
+## 🔗 API Endpoints & Testing with cURL
+
+### 1. 🔐 Login and Get Token
+
+#### Request
+
+```bash
+curl -X POST http://localhost:8081/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}'
+```
+
+#### Response
+
+```bash
+{ "token": "eyJhbGciOi..." }
+```
