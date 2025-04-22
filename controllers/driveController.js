@@ -14,7 +14,7 @@ exports.getDrives = async (req, res) => {
     const drives = await driveService.getAll();
     res.json(drives);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 };
 

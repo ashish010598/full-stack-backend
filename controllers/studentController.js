@@ -25,7 +25,7 @@ exports.getStudents = async (req, res) => {
 exports.markVaccinated = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = req.body; // vaccineName, date, driveId
+    const data = req.body; // date, driveId
     const updated = await studentService.markVaccinated(id, data);
     res.json(updated);
   } catch (err) {

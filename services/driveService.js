@@ -27,14 +27,36 @@ exports.getAll = async () => {
 };
 
 exports.updateDrive = async (id, updates) => {
+  const { vaccineName, date, totalDoses, availableDoses, applicableClasses } =
+    updates;
   const drive = await Drive.findById(id);
   if (!drive) throw new Error("Drive not found");
-
   if (moment(drive.date).isBefore(moment())) {
     throw new Error("Cannot edit a past drive");
   }
-
-  return await Drive.findByIdAndUpdate(id, updates, { new: true });
+  if (vaccineName) drive.vaccineName = vaccineName;
+  if (date) {
+    const newDate = moment(date);
+    if (newDate.isBefore(moment())) {
+      throw new Error("Drive date cannot be in the past");
+    }
+    const conflict = await Drive.findOne({ date, _id: { $ne: id } });
+    if (conflict)
+      throw new Error("Another drive is already scheduled on this date");
+    drive.date = date;
+  }
+  if (totalDoses) drive.totalDoses = totalDoses;
+  if (availableDoses) drive.availableDoses = availableDoses;
+  if (applicableClasses) drive.applicableClasses = applicableClasses;
+  await drive.save();
+  if (vaccineName) {
+    await Student.updateMany(
+      { "vaccinationRecords.driveId": id },
+      { $set: { "vaccinationRecords.$[elem].vaccineName": vaccineName } },
+      { arrayFilters: [{ "elem.driveId": id }] }
+    );
+  }
+  return drive;
 };
 
 exports.getDashboardStats = async () => {
