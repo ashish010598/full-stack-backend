@@ -373,7 +373,7 @@ curl --location 'http://localhost:8081/api/drives/dashboard/stats' \
 ## ✍️ Author
 
 **Ashish Pathak**  
-2024TM93035@wilp.bits-pilani.co.in
+2024TM93035@wilp.bits-pilani.co.in <br />
 [GitHub](https://github.com/ashish010598)
 
 ## 📝 License
