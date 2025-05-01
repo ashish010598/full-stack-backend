@@ -8,7 +8,12 @@ exports.createDrive = async (data) => {
   if (!driveDate) {
     throw new Error("Drive date is required");
   }
-  const today = moment();
+  const today = moment().set({
+    hour: 0,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+  });
   if (driveDate.isBefore(today)) {
     throw new Error("Drive date cannot be in the past");
   }
@@ -45,7 +50,6 @@ exports.updateDrive = async (id, updates) => {
       throw new Error("Another drive is already scheduled on this date");
     drive.date = date;
   }
-  if (totalDoses) drive.totalDoses = totalDoses;
   if (availableDoses) drive.availableDoses = availableDoses;
   if (applicableClasses) drive.applicableClasses = applicableClasses;
   await drive.save();
